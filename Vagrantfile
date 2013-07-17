@@ -164,7 +164,7 @@ end
 puts "From setup steps #{options[:installer]} (version #{printable_version}), setup #{options[:setup].join(' ')}, dctest #{options[:dctest].join(' ')}, steps to follow: " + actions.to_s
 
 puts "CFEngine test environment ready!"
-puts "Engaging donkey's attention..."
+puts "Engaging Vagrant's attention..."
 
 Vagrant.configure("2") do |config|
 
