@@ -1,4 +1,4 @@
-vagrant-cfe
+Vagrant Launcher
 ===========
 
 Start up Vagrant VMs with CFEngine installed.
