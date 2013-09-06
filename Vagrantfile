@@ -7,6 +7,7 @@ require 'ipaddr'
 
 require './boxes'
 require './actions'
+require './types'
 
 ours = []
 
@@ -20,6 +21,9 @@ ours.reverse!
 puts "Command-line options are " + ours.to_s
 
 options= {
+  :type => nil,
+  :list => nil,
+
   :installer => :core,
   :install_version => nil,
   :setup => [],
@@ -41,12 +45,29 @@ Syntax: vagrant [vagrant options] -- OPTIONS
 
 Note that options can be abbreviated.
 
+Example: use the single_centos_hub type:
+  vagrant up -- --type single_centos_hub
+
+Example: list all the available types
+  vagrant ssh -- --list
+
 Example: install on Ubuntu 13.04 from a CFEngine Core master checkout and bootstrap against A.B.C.D
   vagrant up -- --bootstrap_ip A.B.C.D bootstrap
 
 Example: install on Ubuntu 13.04 from the CFEngine APT repo and install Design Center in /var/tmp/dc
   vagrant up -- -ipackages dc
 EOHIPPUS
+
+  op.on("--type=[TYPE]",
+        "Instance type to control") do |v|
+    options = options.merge(Types.type(v))
+  end
+
+  op.on("--list",
+        "List instance types") do |v|
+    pp Types.types
+    exit
+  end
 
   op.on("--dcurl=[URL]",
         "Design Center URL to check out with Git") do |v|
@@ -140,6 +161,9 @@ unless box
 end
 
 puts "Found and using box [#{box}]"
+
+options[:vmname].gsub!("BOX", options[:box] )
+options[:vmname].gsub!(/[^-a-z0-9]/, "-" )
 
 box_type = Boxes.type(box)
 
