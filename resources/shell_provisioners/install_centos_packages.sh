@@ -8,6 +8,7 @@ cd /tmp
 if [ -z "$1" ]; then
     echo Installing Community packages
 
+    yum -y install wget
     wget -q http://cfengine.com/pub/gpg.key
     rpm --import gpg.key
     rm gpg.key
