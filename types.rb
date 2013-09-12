@@ -30,8 +30,8 @@ module Types
     :ubuntu_12_10 => { :box => "ubuntu-12.10-amd64", :vmname => "BOX-64-" },
     :ubuntu_13_04 => { :box => "ubuntu-13.04-amd64", :vmname => "BOX-64-" },
 
-    :debian_precise => { :box => "precise32", :vmname => "BOX-32-" },
-    :debian_lucid => { :box => "lucid32", :vmname => "BOX-32-" },
+    :ubuntu_precise => { :box => "precise32", :vmname => "BOX-32-" },
+    :ubuntu_lucid => { :box => "lucid32", :vmname => "BOX-32-" },
 
     :centos_5_5 => { :box => "centos-5.5", :vmname => "BOX-64-" },
     :centos_5_6 => { :box => "centos-5.6", :vmname => "BOX-64-" },
@@ -112,6 +112,16 @@ module Types
       .merge(FRAGMENTS[:ubuntu_13_04])
       .merge(FRAGMENTS[:core_checkout_master])
       .merge(TEMPLATES[:generic])
+      .merge({ :ip => "10.0.0.20", :count => 1 }),
+
+    "single_centos" => {}
+      .merge(FRAGMENTS[:inone])
+      .merge(FRAGMENTS[:centos_6_4])
+      .merge({ :ip => "10.0.0.20", :count => 1 }),
+
+    "single_ubuntu" => {}
+      .merge(FRAGMENTS[:inone])
+      .merge(FRAGMENTS[:ubuntu_13_04])
       .merge({ :ip => "10.0.0.20", :count => 1 }),
 
   }
