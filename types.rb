@@ -49,10 +49,10 @@ module Types
     :core_checkout_master => { :install_version => "master" },
 
     :centos_client_enterprise352_rpm => { :install_version => "/vagrant/resources/packages/cfengine-nova-3.5.2-1.x86_64.rpm" },
-    :centos_client_enterprise352_deb => { :install_version => "/vagrant/resources/packages/cfengine-nova_3.5.2-1_amd64.deb" },
+    :ubuntu_client_enterprise352_deb => { :install_version => "/vagrant/resources/packages/cfengine-nova_3.5.2-1_amd64.deb" },
 
     :centos_hub_enterprise352_rpm => { :install_version => "/vagrant/resources/packages/cfengine-nova-hub-3.5.2-1.x86_64.rpm" },
-    :centos_hub_enterprise352_deb => { :install_version => "/vagrant/resources/packages/cfengine-nova-hub_3.5.2-1_amd64.deb" },
+    :ubuntu_hub_enterprise352_deb => { :install_version => "/vagrant/resources/packages/cfengine-nova-hub_3.5.2-1_amd64.deb" },
   }
 
   TEMPLATES = {
@@ -71,20 +71,21 @@ module Types
     "single_ubuntu_hub" => {}
       .merge(FRAGMENTS[:ipackages])
       .merge(FRAGMENTS[:ubuntu_13_04])
-      .merge(FRAGMENTS[:centos_hub_enterprise352_deb])
+      .merge(FRAGMENTS[:ubuntu_hub_enterprise352_deb])
       .merge(TEMPLATES[:hub])
       .merge({ :ip => "10.0.0.20", :count => 1 }),
 
     "single_centos_eclient" => {}
       .merge(FRAGMENTS[:ipackages])
       .merge(FRAGMENTS[:centos_6_4])
+      .merge(FRAGMENTS[:centos_client_enterprise352_rpm])
       .merge(TEMPLATES[:generic])
       .merge({ :ip => "10.0.0.20", :count => 1 }),
 
     "single_ubuntu_eclient" => {}
       .merge(FRAGMENTS[:ipackages])
       .merge(FRAGMENTS[:ubuntu_13_04])
-      .merge(FRAGMENTS[:centos_client_enterprise352_deb])
+      .merge(FRAGMENTS[:ubuntu_client_enterprise352_deb])
       .merge(TEMPLATES[:generic])
       .merge({ :ip => "10.0.0.20", :count => 1 }),
 
