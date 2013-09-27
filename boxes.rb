@@ -1,6 +1,8 @@
 module Boxes
 
   BOXEN = %w{
+https://s3.amazonaws.com/cfengine.vagrant-baseboxes/openSUSE-11.4-x86_64-201309251236.box
+
 https://s3.amazonaws.com/Vagrant_BaseBoxes/centos-5.5-x86_64-201306301713.box
 https://s3.amazonaws.com/Vagrant_BaseBoxes/centos-5.6-x86_64-201306301713.box
 https://s3.amazonaws.com/Vagrant_BaseBoxes/centos-5.7-x86_64-201306301713.box

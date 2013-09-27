@@ -33,6 +33,8 @@ module Types
     :ubuntu_precise => { :box => "precise32", :vmname => "BOX-32-" },
     :ubuntu_lucid => { :box => "lucid32", :vmname => "BOX-32-" },
 
+    :suse_11_4 => { :box => "SUSE", :vmname => "BOX-64-" },
+
     :centos_5_5 => { :box => "centos-5.5", :vmname => "BOX-64-" },
     :centos_5_6 => { :box => "centos-5.6", :vmname => "BOX-64-" },
     :centos_5_7 => { :box => "centos-5.7", :vmname => "BOX-64-" },
@@ -101,6 +103,12 @@ module Types
       .merge(TEMPLATES[:generic])
       .merge({ :ip => "10.0.0.20", :count => 1 }),
 
+    "single_suse_cclient" => {}
+      .merge(FRAGMENTS[:ipackages])
+      .merge(FRAGMENTS[:suse])
+      .merge(TEMPLATES[:generic])
+      .merge({ :ip => "10.0.0.20", :count => 1 }),
+
     "single_centos_source" => {}
       .merge(FRAGMENTS[:icore])
       .merge(FRAGMENTS[:centos_6_4])
@@ -115,6 +123,13 @@ module Types
       .merge(TEMPLATES[:generic])
       .merge({ :ip => "10.0.0.20", :count => 1 }),
 
+    "single_suse_source" => {}
+      .merge(FRAGMENTS[:icore])
+      .merge(FRAGMENTS[:suse])
+      .merge(FRAGMENTS[:core_checkout_master])
+      .merge(TEMPLATES[:generic])
+      .merge({ :ip => "10.0.0.20", :count => 1 }),
+
     "single_centos" => {}
       .merge(FRAGMENTS[:inone])
       .merge(FRAGMENTS[:centos_6_4])
@@ -123,6 +138,11 @@ module Types
     "single_ubuntu" => {}
       .merge(FRAGMENTS[:inone])
       .merge(FRAGMENTS[:ubuntu_13_04])
+      .merge({ :ip => "10.0.0.20", :count => 1 }),
+
+    "single_suse" => {}
+      .merge(FRAGMENTS[:inone])
+      .merge(FRAGMENTS[:suse])
       .merge({ :ip => "10.0.0.20", :count => 1 }),
 
   }
