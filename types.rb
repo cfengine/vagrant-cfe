@@ -105,7 +105,7 @@ module Types
 
     "single_suse_cclient" => {}
       .merge(FRAGMENTS[:ipackages])
-      .merge(FRAGMENTS[:suse])
+      .merge(FRAGMENTS[:suse_11_4])
       .merge(TEMPLATES[:generic])
       .merge({ :ip => "10.0.0.20", :count => 1 }),
 
@@ -125,7 +125,7 @@ module Types
 
     "single_suse_source" => {}
       .merge(FRAGMENTS[:icore])
-      .merge(FRAGMENTS[:suse])
+      .merge(FRAGMENTS[:suse_11_4])
       .merge(FRAGMENTS[:core_checkout_master])
       .merge(TEMPLATES[:generic])
       .merge({ :ip => "10.0.0.20", :count => 1 }),
@@ -142,7 +142,7 @@ module Types
 
     "single_suse" => {}
       .merge(FRAGMENTS[:inone])
-      .merge(FRAGMENTS[:suse])
+      .merge(FRAGMENTS[:suse_11_4])
       .merge({ :ip => "10.0.0.20", :count => 1 }),
 
   }

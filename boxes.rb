@@ -41,6 +41,9 @@ http://files.vagrantup.com/lucid32.box
 
       when /centos/
       return :centos
+
+      when /suse/i
+      return :suse
     end
   end
 
