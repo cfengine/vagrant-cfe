@@ -36,6 +36,7 @@ options= {
   :dcbranch => 'master',
   :vmname => 'cftester',
   :vmsize => "1024",
+  :fport => "80",
   :baseport => "8080",
 }
 
@@ -86,6 +87,11 @@ EOHIPPUS
 
   op.on("--baseport=[BASEPORT]",
         "Base forwarding port") do |v|
+    options[:baseport] = v
+  end
+
+  op.on("--fport=[FPORT]",
+        "Forwarded port") do |v|
     options[:baseport] = v
   end
 
@@ -213,7 +219,7 @@ Vagrant.configure("2") do |config|
 
       vm_config.vm.network :private_network, ip: ip
 
-      vm_config.vm.network :forwarded_port, guest: 80, host: options[:baseport].to_i+i
+      vm_config.vm.network :forwarded_port, guest: options[:fport], host: options[:baseport].to_i+i
 
       options[:i] = i
       actions.each do |a|

@@ -13,6 +13,7 @@
   # :vmname => 'cftester',
   # :vmsize => "1024",
   # :baseport => "8080",
+  # :fport => "80",
 
 module Types
 
@@ -60,6 +61,7 @@ module Types
   TEMPLATES = {
     :hub => { :setup => [ "bootstrap", "custom_masterfiles", "dc", "hub", "converge" ] },
     :generic => { :setup => [ "converge" ] },
+    :jenkins => { :setup => [ "jenkins" ], :fport => 8080 },
   }
 
   TYPES = {
@@ -133,6 +135,12 @@ module Types
     "single_centos" => {}
       .merge(FRAGMENTS[:inone])
       .merge(FRAGMENTS[:centos_6_4])
+      .merge({ :ip => "10.0.0.20", :count => 1 }),
+
+    "single_centos_jenkins" => {}
+      .merge(FRAGMENTS[:inone])
+      .merge(FRAGMENTS[:centos_6_4])
+      .merge(TEMPLATES[:jenkins])
       .merge({ :ip => "10.0.0.20", :count => 1 }),
 
     "single_ubuntu" => {}
