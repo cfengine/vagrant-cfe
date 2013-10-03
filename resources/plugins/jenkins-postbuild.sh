@@ -17,4 +17,4 @@ echo "echo \"=BUILD_TIME=$NOW\"" >> $TMPFILE
 echo 'echo "+jenkins_module_loaded"' >> $TMPFILE
 chmod 700 $TMPFILE
 
-sudo -n /vagrant/resources/plugins/jenkins-postbuild2.sh
+sudo -n $(dirname $0)/jenkins-postbuild2.sh
