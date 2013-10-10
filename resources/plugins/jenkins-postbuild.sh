@@ -17,4 +17,4 @@ echo "echo \"=BUILD_TIME=$NOW\"" >> $TMPFILE
 echo 'echo "+jenkins_module_loaded"' >> $TMPFILE
 chmod 700 $TMPFILE
 
-sudo -n $(dirname $0)/jenkins-postbuild2.sh
+sudo -n /var/cfengine/bin/cf-agent -I -f /var/cfengine/inputs/lib/3.5/feature.cf -b feature -Dfeature_set_90m_jenkinsnotify

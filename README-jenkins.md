@@ -19,10 +19,10 @@ Install the PostBuildScript Plugin (https://wiki.jenkins-ci.org/display/JENKINS/
 
 For your project, add a post-build shell (not a script path) to call `/vagrant/resources/plugins/jenkins-postbuild.sh`
 
-This script calls `sudo /vagrant/resources/plugins/jenkins-postbuild2.sh`.  You'll need to give the `jenkins` user permission to run it, e.g.
+This script calls `sudo /var/cfengine/bin/cf-agent`.  You'll need to give the `jenkins` user permission to run it, e.g.
 
 ```
-grep /vagrant/resources/plugins/jenkins-postbuild2.sh /etc/sudoers || echo 'jenkins ALL=(ALL) NOPASSWD: /vagrant/resources/plugins/jenkins-postbuild2.sh' >> /etc/sudoers
+(grep /var/cfengine/bin/cf-agent /etc/sudoers | grep jenkins) || echo 'jenkins ALL=(ALL) NOPASSWD: /var/cfengine/bin/cf-agent' >> /etc/sudoers
 ```
 
 (but please, use visudo or the Design Center sudoers sketch to do this
