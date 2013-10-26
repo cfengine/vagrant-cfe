@@ -22,6 +22,8 @@ module Types
     :ipackages => { :installer => :packages },
     :icore => { :installer => :core },
 
+    :ubuntu_on_ec2 => { :provider => :ec2, :ec2_options => { :ami => "ami-a29943cb", :instance_type => "t1.micro", :region => "us-east-1", :security_group => "default" } },
+
     :ubuntu_10_04 => { :box => "ubuntu-10.04-amd64", :vmname => "BOX-64-" },
     :ubuntu_10_04_i386 => { :box => "ubuntu-10.04-i386", :vmname => "BOX-32-" },
     :ubuntu_10_10 => { :box => "ubuntu-10.10-amd64", :vmname => "BOX-64-" },
@@ -153,6 +155,12 @@ module Types
       .merge(FRAGMENTS[:suse_11_4])
       .merge({ :ip => "10.0.0.20", :count => 1 }),
 
+    "single_ubuntu_ec2" => {}
+      .merge(FRAGMENTS[:inone])
+      .merge(FRAGMENTS[:ubuntu_on_ec2])
+      .merge({ :count => 1 }),
+
+
   }
 
   def Types.type(name)
@@ -160,6 +168,8 @@ module Types
       abort "Sorry, we can't find the requested type #{name}"
     end
 
+    # puts "Got type:"
+    # pp TYPES[name]
     return TYPES[name]
   end
 

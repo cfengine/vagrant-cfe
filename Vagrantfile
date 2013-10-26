@@ -26,8 +26,10 @@ options= {
 
   :installer => :core,
   :install_version => nil,
+  :provider => "virtualbox",
   :setup => [],
   :dctest => [],
+  :ec2_options => {},
   :box => 'ubuntu-13.04',
   :count => 1,
   :ip => "10.1.1.12",
@@ -48,6 +50,9 @@ Note that options can be abbreviated.
 
 Example: use the single_centos_hub type:
   vagrant up -- --type single_centos_hub
+
+Example: use the single_ubuntu_ec2 type:
+  vagrant up -- --type single_ubuntu_ec2
 
 Example: list all the available types
   vagrant ssh -- --list
@@ -169,7 +174,7 @@ end
 puts "Found and using box [#{box}]"
 
 options[:vmname].gsub!("BOX", options[:box] )
-options[:vmname].gsub!(/[^-a-z0-9]/, "-" )
+options[:vmname].gsub!(/[^-A-Za-z0-9]/, "-" )
 
 box_type = Boxes.type(box)
 
@@ -201,7 +206,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = File.basename(box)
   config.vm.box_url = box
 
-  config.vm.provider "virtualbox" do |v|
+  config.vm.provider options[:provider] do |v|
     v.customize ["modifyvm", :id, "--memory", 1024]
   end
 
