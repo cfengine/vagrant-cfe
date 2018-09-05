@@ -25,9 +25,6 @@ This script calls `sudo /var/cfengine/bin/cf-agent`.  You'll need to give the `j
 (grep /var/cfengine/bin/cf-agent /etc/sudoers | grep jenkins) || echo 'jenkins ALL=(ALL) NOPASSWD: /var/cfengine/bin/cf-agent' >> /etc/sudoers
 ```
 
-(but please, use visudo or the Design Center sudoers sketch to do this
-properly or talk to your friendly sysadmin)
-
 # Verify that it works
 
 In the console output for your build, you should see something like this:
