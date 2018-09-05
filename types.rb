@@ -3,13 +3,10 @@
   # :installer => :core,
   # :install_version => nil,
   # :setup => [],
-  # :dctest => [],
   # :box => 'ubuntu-13.04',
   # :count => 1,
   # :ip => "10.1.1.12",
   # :bootstrap_ip => nil,
-  # :dcurl => 'https://github.com/cfengine/design-center.git',
-  # :dcbranch => 'master',
   # :vmname => 'cftester',
   # :vmsize => "1024",
   # :baseport => "8080",
@@ -61,7 +58,7 @@ module Types
   }
 
   TEMPLATES = {
-    :hub => { :setup => [ "bootstrap", "custom_masterfiles", "dc", "hub", "converge" ] },
+    :hub => { :setup => [ "bootstrap", "custom_masterfiles", "hub", "converge" ] },
     :generic => { :setup => [ "converge" ] },
     :jenkins => { :setup => [ "jenkins" ], :fport => 8080 },
   }

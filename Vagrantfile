@@ -28,14 +28,11 @@ options= {
   :install_version => nil,
   :provider => "virtualbox",
   :setup => [],
-  :dctest => [],
   :ec2_options => {},
   :box => 'ubuntu-13.04',
   :count => 1,
   :ip => "10.1.1.12",
   :bootstrap_ip => nil,
-  :dcurl => 'https://github.com/cfengine/design-center.git',
-  :dcbranch => 'master',
   :vmname => 'cftester',
   :vmsize => "1024",
   :fport => "80",
@@ -59,9 +56,6 @@ Example: list all the available types
 
 Example: install on Ubuntu 13.04 from a CFEngine Core master checkout and bootstrap against A.B.C.D
   vagrant up -- --bootstrap_ip A.B.C.D bootstrap
-
-Example: install on Ubuntu 13.04 from the CFEngine APT repo and install Design Center in /var/tmp/dc
-  vagrant up -- -ipackages dc
 EOHIPPUS
 
   op.on("--type=[TYPE]",
@@ -73,11 +67,6 @@ EOHIPPUS
         "List instance types") do |v|
     pp Types.types
     exit
-  end
-
-  op.on("--dcurl=[URL]",
-        "Design Center URL to check out with Git") do |v|
-    options[:dcurl] = v
   end
 
   op.on("--vmname=[VMNAME]",
@@ -100,11 +89,6 @@ EOHIPPUS
     options[:baseport] = v
   end
 
-  op.on("--dcbranch=[BRANCH]",
-        "Design Center branch to check out with Git") do |v|
-    options[:dcbranch] = v
-  end
-
   op.on("-i[INSTALLER]", "--installer=[INSTALLER]",
         [:none, :core, :packages],
         "Installation method for CFEngine (none, core, packages)") do |v|
@@ -114,18 +98,6 @@ EOHIPPUS
   op.on("--install_version=[VERSION]",
         "Installation version for CFEngine, where applicable") do |v|
     options[:install_version] = v
-  end
-
-  op.on("--setup bootstrap,dc",
-        Array,
-        "Setup steps: (bootstrap, dc, etc.).  Only bootstrap and dc have special treatment.") do |v|
-    options[:setup] = v
-  end
-
-  op.on("--dctest x,y,z",
-        Array,
-        "Test sketches: (Sketch1, Sketch2, etc.)") do |v|
-    options[:dctest] = v
   end
 
   op.on("-b[BOX]", "--box=[BOX]",
@@ -188,15 +160,9 @@ puts "Requested instance count [#{options[:count]}]"
 puts "Requested instance IP or IP prefix [#{options[:ip]}]"
 puts "Requested bootstrap IP [#{options[:bootstrap_ip]}]"
 
-actions = Actions.assemble(Boxes.type(box), options[:installer], options[:install_version], options[:setup], options[:dctest])
+actions = Actions.assemble(Boxes.type(box), options[:installer], options[:install_version], options[:setup])
 
 printable_version = options[:install_version] || 'latest'
-
-unless actions
-  abort "Sorry, the box #{options[:box]} with type #{box_type} and setup steps #{options[:installer]} (version #{printable_version}), #{options[:setup].join(' ')}, #{options[:dctest].join(' ')} did not give us valid steps to follow.  Bye."
-end
-
-puts "From setup steps #{options[:installer]} (version #{printable_version}), setup #{options[:setup].join(' ')}, dctest #{options[:dctest].join(' ')}, steps to follow: " + actions.to_s
 
 puts "CFEngine test environment ready!"
 puts "Engaging Vagrant's attention..."
